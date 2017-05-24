@@ -19,20 +19,10 @@ function getVisitor(t) {
             visited[filePath] = visited[filePath] || {};
             visited[filePath][path.node.start] = path.node.end;
 
-            const description = [];
-            for (let expression of path.node.arguments) {
-                if (description.length === 0) {
-                    // if (!expression.loc) {
-                    //     continue;
-                    // }
-                    const { line, column } = expression.loc.start;
-                    description.push(`${filePath}:${line}:${column}:${path.node.callee.property.name.toUpperCase()}`);
-                } else {
-                    description.push(this.file.code.substring(expression.start, expression.end));
-                }
+            const { line, column } = expression.loc.start;
+            const description = `${filePath}:${line}:${column}:${path.node.callee.property.name.toUpperCase()}`;
 
-            }
-            path.node.arguments.unshift(t.stringLiteral(description.join(',')));
+            path.node.arguments.unshift(t.stringLiteral(description);
 
         }
     };
