@@ -4,7 +4,7 @@ Babel plugin to enhance console logging statements
 ## transformation
 
 ```
-console.log('abc') -> console.log('dir/file.js:line:column:LOG','abc')
+console.log('abc') -> console.log('dir/file.js:line:LOG','abc')
 ```
 ## usage
 
