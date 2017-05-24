@@ -4,33 +4,36 @@ function isLogger(path, loggers) {
         return path.get("callee").matchesPattern(logger.pattern, true)
     });
 }
-
+visited = {}
 function getVisitor(t) {
     return {
         CallExpression(path, options) {
             const loggers = options.opts.loggers || [{ pattern: 'console' }];
-            if (isLogger(path, loggers)) {
-                const description = [];
-                for (let expression of path.node.arguments) {
-                    if (description.length === 0) {
-                        let relativePath;
-                        const filePath = this.file.log.filename;
-                        if (filePath.charAt(0) !== '/') {
-                            relativePath = filePath;
-                        } else {
-                            let cwd = process.cwd();
-                            relativePath = filePath.substring(cwd.length + 1);
-                        }
+            if (!isLogger(path, loggers)) return;
 
-                        const { line, column } = expression.loc.start;
-                        description.push(`${relativePath}:${line}:${column}:`);
-                    } else {
-                        description.push(this.file.code.substring(expression.start, expression.end));
-                    }
+            const filePath = this.file.log.filename;
 
-                }
-                path.node.arguments.unshift(t.stringLiteral(description.join(',')));
+            if (visited[filePath] && visited[filePath][path.node.start] === path.node.end) {
+                return;
             }
+            visited[filePath] = visited[filePath] || {};
+            visited[filePath][path.node.start] = path.node.end;
+
+            const description = [];
+            for (let expression of path.node.arguments) {
+                if (description.length === 0) {
+                    // if (!expression.loc) {
+                    //     continue;
+                    // }
+                    const { line, column } = expression.loc.start;
+                    description.push(`${filePath}:${line}:${column}:${path.node.callee.property.name.toUpperCase()}`);
+                } else {
+                    description.push(this.file.code.substring(expression.start, expression.end));
+                }
+
+            }
+            path.node.arguments.unshift(t.stringLiteral(description.join(',')));
+
         }
     };
 }
