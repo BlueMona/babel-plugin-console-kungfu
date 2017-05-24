@@ -19,7 +19,7 @@ function getVisitor(t) {
             visited[filePath] = visited[filePath] || {};
             visited[filePath][path.node.start] = path.node.end;
 
-            const { line, column } = expression.loc.start;
+            const { line, column } = path.node.start;
             const description = `${filePath}:${line}:${column}:${path.node.callee.property.name.toUpperCase()}`;
 
             path.node.arguments.unshift(t.stringLiteral(description));
