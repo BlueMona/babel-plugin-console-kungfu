@@ -22,7 +22,7 @@ function getVisitor(t) {
             const { line, column } = expression.loc.start;
             const description = `${filePath}:${line}:${column}:${path.node.callee.property.name.toUpperCase()}`;
 
-            path.node.arguments.unshift(t.stringLiteral(description);
+            path.node.arguments.unshift(t.stringLiteral(description));
 
         }
     };
