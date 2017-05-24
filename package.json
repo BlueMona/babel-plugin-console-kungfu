@@ -1,0 +1,19 @@
+{
+  "name": "babel-plugin-console-kungfu",
+  "version": "1.0.0",
+  "description": "Babel plugin to enhance console logging statements",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PeerioTechnologies/babel-plugin-console-kungfu.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PeerioTechnologies/babel-plugin-console-kungfu/issues"
+  },
+  "homepage": "https://github.com/PeerioTechnologies/babel-plugin-console-kungfu#readme"
+}
