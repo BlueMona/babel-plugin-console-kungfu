@@ -18,9 +18,8 @@ function getVisitor(t) {
             }
             visited[filePath] = visited[filePath] || {};
             visited[filePath][path.node.start] = path.node.end;
-
-            const { line, column } = path.node.start;
-            const description = `${filePath}:${line}:${column}:${path.node.callee.property.name.toUpperCase()}`;
+            const line = path.node.loc.start.line;
+            const description = `${filePath}:${line}:${path.node.callee.property.name.toUpperCase()}`;
 
             path.node.arguments.unshift(t.stringLiteral(description));
 
