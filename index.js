@@ -6,7 +6,7 @@ function isLogger(path, loggers) {
 }
 visited = {}
 
-const skipString = 'node_modules/@peerio/peerio-icebear/src';
+const skipString = 'node_modules/@peerio/peerio-icebear/src/';
 
 function getVisitor(t) {
     return {
