@@ -6,7 +6,7 @@ function isLogger(path, loggers) {
 }
 visited = {}
 
-const skipString = 'node_modules/peerio-icebear/';
+const skipString = 'node_modules/@peerio/peerio-icebear/src';
 
 function getVisitor(t) {
     return {
@@ -23,7 +23,7 @@ function getVisitor(t) {
             visited[filePath][path.node.start] = path.node.end;
 
             if (filePath.startsWith(skipString)) {
-                filePath = 'icebear/' + filePath.substring(skipString.length);
+                filePath = 'ice/' + filePath.substring(skipString.length);
             }
             const line = path.node.loc.start.line;
             const description = `${filePath}:${line}:${path.node.callee.property.name.toUpperCase()}`;
